@@ -9,10 +9,13 @@
  #logo{
     float: left;
     font-size: 1.7rem;
-    color:#fff;
+    // color:#fff;
     text-transform: uppercase;
     letter-spacing: -1px;
     font-weight: bold;
+    background: -webkit-linear-gradient(#f66d6d, #b33ff2);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
  }
 
  #logo:hover{
@@ -25,21 +28,35 @@
  }
 
 .jumbotron{
-    background-image: asset-url('jumbo-copy.jpg');
+    background:  linear-gradient(
+      rgba(0, 0, 0, 0.8), 
+      rgba(0, 0, 0, 1)
+    ),
+    url('jumbo-copy.png');
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
-    height: 425px;
+    height: 425px;    
 }
 
 html,
 body {
   height: 100%;
 }
-
+#logo1{
+  background: -webkit-linear-gradient(#f66d6d, #b33ff2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
 #page-content {
   flex: 1 0 auto;
-  background-color: lightgrey;
+  // background-color: lightgrey;
+  // background-image: asset-url('blog1.png');
+  background:  linear-gradient(
+      rgba(0, 0, 0, 0.9), 
+      rgba(0, 0, 0, 0.6)
+    ),
+    url('blog1.png');
 }
 
 /* Other Classes for Page Styling */

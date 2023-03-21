@@ -2,7 +2,7 @@
     <% @articles.each do |article| %>
     <div class="row justify-content-md-center">
     <div class="col-8 mt-4">
-        <div class="card text-center shadow mb-5 bg-white rounded">
+        <div class="card text-center shadow mb-5 rounded" style="background-image: linear-gradient(to bottom, #99ccff 0%, #ffffff 74%)">
             <div class="card-header% font-italic">
                <% if article.user %>
                by <%= link_to article.user.username, user_path(article.user) %>

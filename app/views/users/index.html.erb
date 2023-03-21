@@ -1,4 +1,4 @@
-<h1 class="text-center mt-4">ALpha Bloggers</h1>
+<h1 class="text-center mt-4"id="logo1">ALpha Bloggers</h1>
 
 <div class="flickr_pagination">
     <%= will_paginate @users, :container => false %>
@@ -8,8 +8,8 @@
     <% @users.each do |user| %>
     <div class="row justify-content-md-center">
     <div class="col-8 mt-4">
-        <div class="card text-center shadow mb-5 bg-white rounded">
-            <div class="card-header font-italic">
+        <div class="card text-center shadow mb-5  rounded" style="background-image: linear-gradient(315deg, #ff99cc 0%, #66ffff 74%)">
+            <div class="card-header font-italic h6">
                <%= link_to user.username, user  %>
             </div>
             <div class="card-body">
