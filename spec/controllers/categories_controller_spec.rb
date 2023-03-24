@@ -5,6 +5,7 @@ RSpec.describe CategoriesController, type: :request do
 describe "when logged in as admin" do
   before(:each) do
     user = sign_in_user(true)
+    @category=Category.create(name: "testtt")
   end
   it "access categories path " do
     get categories_path
@@ -22,20 +23,18 @@ describe "when logged in as admin" do
     }
   }.to change(Category, :count).by(1)
   end
+
   it "edit categories path " do
-    user = sign_out_user
-    category = create_dummy_category 
-    puts "debug 1"
-    get "/categories/#{category.id}/edit"
+    get "/categories/#{@category.id}/edit"
     expect(response).to be_successful
   end  
   it "update a category " do
-    category = create_dummy_category
-    patch "/categories/#{category.id}", params:{
+    patch "/categories/#{@category.id}", params:{
       category: {
         name: "category12345"
       }
     }
+    follow_redirect!
     expect(response).to be_successful
   end
 end

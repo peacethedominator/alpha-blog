@@ -50,11 +50,13 @@ RSpec.describe UsersController, type: :request do
         let(:user) { User.create(username: 'johndoe', email: 'johndoe@example.com', password: 'password') }
         let(:other_user) { User.create(username: 'janedoe', email: 'janedoe@example.com', password: 'password') }
         context 'when logged in' do
-            before do
-                session[:user_id] = user.id
-                get "/users/#{user.id}/edit"
-            end
+            # before do
+            #     session[:user_id] = user.id
+            #     get "/users/#{user.id}/edit"
+            # end
             it 'render edit template' do
+                user= sign_in_user
+                get "/users/#{user.id}/edit" 
                 expect(response).to render_template(:edit)
             end
         end
@@ -68,17 +70,23 @@ RSpec.describe UsersController, type: :request do
             end
         end
     end
-    # describe '#destroy action' do
-    #     let(:user) { User.create(username: 'johndoe', email: 'johndoe@example.com', password: 'password') }
-    #     context 'when not logged in' do
-    #         it 'redirects to login page' do
-    #             user = sign_in_user
-    #             delete "/users/#{user.id}"
-    #             expect(response).to redirect_to(articles_path)
-    #         end
-    #         it 'does not delete user' do
-    #             expect {delete "/users/#{user.id}"}.to_not change(User, :count)
-    #         end
-    #     end
-    # end
+    describe '#destroy action' do
+        context 'when not logged in as admin' do
+            it 'redirects to login page' do
+                user = sign_in_user
+                delete "/users/#{user.id}"
+                expect(response).to redirect_to(articles_path)
+            end
+            it 'deletes user if same user' do
+                user = sign_in_user
+                expect {delete "/users/#{user.id}"}.to change(User, :count)
+            end
+            # it 'does not deletes user if another user' do
+            #     user = sign_in_user
+            #     user1 = sign_in_user1
+            #     session[:user_id] = user1.id
+            #     expect {delete "/users/#{user.id}"}.to_not change(User, :count)
+            # end
+        end
+    end
 end
