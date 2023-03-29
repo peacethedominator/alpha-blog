@@ -6,9 +6,18 @@
         <%= link_to "Edit Your Profile", edit_user_path(@user), class:"btn btn-outline-info" %>
     </div>
 <% end %>
-
-
-<h3 class="text-center mt-4">Articles</h3>
+<div class="container">
+  <div class="text-center mt-3">
+    <% unless current_user == @user %> #for all the users except the current user
+        <% if current_user.followings.include?(@user) %>
+            <%= button_to "Unfollow", user_follows_destroy_path(@user, followed_id: @user.id), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
+        <% else %>
+            <%= button_to "+ Follow", user_follows_create_path(@user, followed_id: @user.id),class: "btn btn-outline-info", method: :post %>
+        <% end %>
+    <% end %>
+ </div>
+</div>
+<h3 class="text-center mt-4 text-light">Articles</h3>
 <div class="flickr_pagination">
     <%= will_paginate @articles, :container => false %>
 </div>

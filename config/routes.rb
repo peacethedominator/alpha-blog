@@ -10,4 +10,9 @@ Rails.application.routes.draw do
   post 'login', to: 'sessions#create'
   delete 'logout', to: 'sessions#destroy'
   resources :categories, except: [:destroy]
+  # post 'follows/create', to: 'follows#create'
+  resources :users do
+    post 'follows/create', to: 'follows#create'
+    delete 'follows/destroy', to: 'follows#destroy'
+  end
 end

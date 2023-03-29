@@ -7,7 +7,10 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   end
   
   def index
-    @articles = Article.paginate(page: params[:page], per_page: 5)
+    followed_users = current_user.followings
+    @articles = Article.where(user_id: followed_users << current_user).paginate(page: params[:page], per_page: 5)
+    # @articles = Article.paginate(page: params[:page], per_page: 5)
+    # @articles = Article.where(user_id: current_user.followings.pluck(:id))
   end
 
   def new 

@@ -16,20 +16,32 @@
                 <h5 class="card-title">
                     <%= link_to gravatar_for(user, size: 150), user %>
                 </h5>
-                <p class="card-text"><%= pluralize(user.articles.count, "article") %></p>
-                <%= link_to "View profile", user, class: "btn btn-outline-success" %>
-                <%= link_to "+ Follow", user, class: "btn btn-outline-info" %>
-                <% if logged_in? %>
-                  <% if user==current_user %>
-                <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info" %>
-                <% end %>
-                <% if current_user.admin? %>
-                    <%= link_to "Delete user", user_path(user), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to delete the user account and related data?" } %>
-                <% end %>
-                <% end %>
+                <p class="card-text h6"><%= pluralize(user.articles.count, "article") %></p>
+
+                    <div class="container col-4">
+                        <div class="text-center d-flex justify-content-between">
+                            <%= link_to "View profile", user, class: "btn btn-outline-success" %>
+                            <% unless current_user == user %>
+                                <% if current_user.followings.include?(user) %>
+                                    <%= button_to "Unfollow", user_follows_destroy_path(user, followed_id: user.id), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
+                                <% else %>
+                                    <%= button_to "+ Follow", user_follows_create_path(user, followed_id: user.id),class: "btn btn-outline-info", method: :post %>
+                                <% end %>
+                            <% end %>
+                            <% if logged_in? %>
+                                <% if user==current_user %>
+                                    <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info" %>
+                                <% end %>
+                                <% if current_user.admin? %>
+                                        <%= link_to "Delete user", user_path(user), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to delete the user account and related data?" } %>
+                                <% end %>
+                            <% end %>
+                        </div>
+                    </div>
+
             </div>
             <div class="card-footer text-muted">
-                <small>Joined <%= time_ago_in_words(user.created_at) %> ago,
+                <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>
            </div>
         </div>
     </div>
