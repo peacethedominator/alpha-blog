@@ -8,7 +8,7 @@
   <% @categories.each do |category| %>
     <div class="row justify-content-md-center">
       <div class="col-4 mt-4">
-        <div class="card text-center shadow mb-5 rounded" style="background-image: linear-gradient(to top left, #0000ff 0%, #ff9966 74%)">
+        <div class="card text-center shadow mb-5 rounded" style="background-image: linear-gradient(315deg, #ff99cc 0%, #66ffff 74%)">
           <div class="card-body">
             <h5 class="card-title"><%= link_to category.name, category_path(category), class: "text-success" %></h5>
             <p class="card-text"><%= pluralize(category.articles.count, "article") %></p>
