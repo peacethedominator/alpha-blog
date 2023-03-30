@@ -4,8 +4,8 @@ class User < ApplicationRecord
     has_many :follows, foreign_key: :follower_id
     #association uses the through option to specify that the User model can access the followings association by going through the Follow model
     has_many :followings, through: :follows, source: :followed     
-    
-    has_many :reverse_follows, foreign_key: :followed_id, class_name: 'Follow'
+    #has_many association to followers through reverse_follows, which retrieves all the users who are following a particular user
+    has_many :reverse_follows, foreign_key: :followed_id, class_name: 'Follow', dependent: :destroy
     #User can access their followers by looking at the users who are following them through the reverse_follows association
     has_many :followers, through: :reverse_follows, source: :follower
     
