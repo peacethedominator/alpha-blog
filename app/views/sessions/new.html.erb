@@ -1,27 +1,31 @@
 <h1 class="text-center mt-4" id="logo1">Login into ALpha Blog</h1>
-<div class="container">
-  <div class="row justify-content-center">
-  <div class="col-10">
-        <%= form_with(scope: :session,url: login_path, class: "shadow p-3 mb-3 bg-success rounded",local: true) do |f|%>
+
+<div class="container rounded bg-white mt-5 mb-5">
+    <div class="row">
+        <div class="col-md-5 border-right">        
+            <div class="d-flex flex-column align-items-center text-center p-3 py-5"><img class="rounded-circle mt-5" width="150px" src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"></div>
+        </div>
+        <div class="col-md-7 ">
+            <div class="p-3 py-5">
+               <%= form_with(scope: :session,url: login_path, class: "shadow p-3 mb-3  rounded",local: true) do |f|%>
+                <div class="row mt-3">
+                    <div class="col-md-12 mt-2">
+                      <label class="labels">Email</label>
+                      <%= f.email_field :email, class: "form-control shadow rounded", placeholder: "Enter your email address" %>
+                    </div>
+                    <div class="col-md-12 mt-2">
+                      <label class="labels">Password</label>
+                      <%= f.password_field :password, class: "form-control shadow rounded", placeholder: "Enter your password" %>
+                    </div>
+                </div>
+                <div class="mt-5 text-center">
+                 <%= f.submit "Log in", class:"btn btn-outline-success btn-lg" %>
+                </div>
+              <% end %>
+            </div>
+        </div>
         
-        <div class="form-group row">
-          <%= f.label :email, class: "col-2 col-form-label text-light" %>
-          <div class="col-10">
-            <%= f.email_field :email, class: "form-control shadow rounded", placeholder: "Enter your email address" %>
-          </div>
-        </div>
-         <div class="form-group row">
-          <%= f.label :password, class: "col-2 col-form-label text-light"%>
-          <div class="col-10">
-            <%= f.password_field :password, class: "form-control shadow rounded", placeholder: "Enter your password" %>
-          </div>
-        </div>
-        <div class="form-group row justify-content-center">
-          <%= f.submit "Log in", class:"btn btn-outline-light btn-lg" %>
-        </div>
-    <% end %>
-      </div> 
-      <div class="mb-3">
     </div>
-  </div>
+</div>
+</div>
 </div>

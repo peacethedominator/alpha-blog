@@ -4,50 +4,68 @@
     <%= will_paginate @users, :container => false %>
 </div>
 
-<div class="container">
-    <% @users.each do |user| %>
-    <div class="row justify-content-md-center">
-    <div class="col-8 mt-4">
-        <div class="card text-center shadow mb-5  rounded" style="background-image: linear-gradient(315deg, #ff99cc 0%, #66ffff 74%)">
-            <div class="card-header font-italic h6">
-               <%= link_to user.username, user  %>
+<section class="vh-8">
+ <% @users.each do |user| %>
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center align-items-center h-100">
+      <div class="col col-md-9 col-lg-7 col-xl-5">
+        <div class="card" style="border-radius: 15px;">
+          <div class="card-body p-4">
+            <div class="d-flex text-black">
+              <div class="flex-shrink-0 ">
+               <div class= "mt-2">
+                <%# %= link_to gravatar_for(user, size: 150), user %> 
+                <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                  alt="User avatar" class="img-fluid"
+                  style="width: 150px; border-radius: 10px;" />
+               </div>
+              </div>
+              <div class="flex-grow-1 ms-3">
+                <h5 class="mb-1 ml-3"><%= link_to user.username, user  %></h5>
+                <small class="mb-2 pb-1 ml-2" style="color: #2b2a2a;">Joined <%= time_ago_in_words(user.created_at) %> ago</small>
+                <div class="d-flex justify-content-start rounded-3 p-2 mb-2 ml-2"
+                  style="background-color: #efefef;">
+                  <div>
+                    <p class="small text-muted mb-1">Articles</p>
+                    <p class="mb-0 ml-2"><%= pluralize(user.articles.count, "") %></p>
+                  </div>
+                  <div class="px-3">
+                    <p class="small text-muted mb-1">Followers</p>
+                    <p class="mb-0 ml-3"><%= pluralize(user.followers.count, "") %></p>
+                  </div>
+                  <div>
+                    <p class="small text-muted mb-1">Following</p>
+                    <p class="mb-0 ml-3"><%= pluralize(user.followings.count, "") %></p>
+                  </div>
+                </div>
+                <div class="d-flex pt-1">
+                    <%= link_to "View profile", user, class: "btn btn-outline-success ml-2" %>
+                    <% unless current_user == user %>
+                        <% if current_user.followings.include?(user) %>
+                            <%= button_to "Unfollow", user_follows_destroy_path(user, followed_id: user.id), class: "btn btn-outline-danger ml-2", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
+                        <% else %>
+                            <%= button_to "+ Follow", user_follows_create_path(user, followed_id: user.id),class: "btn btn-outline-info ml-2", method: :post %>
+                        <% end %>
+                    <% end %>
+                    <% if logged_in? %>
+                        <% if user == current_user %>
+                            <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info ml-2" %>
+                        <% end %>
+                        <% if current_user.admin? %>
+                                <%= link_to "Delete user", user_path(user), class: "btn btn-outline-danger ml-2", method: :delete, data:{confirm: "Are you sure you want to delete the user account and related data?" } %>
+                        <% end %>
+                    <% end %>                  
+                </div>
+              </div>
             </div>
-            <div class="card-body">
-                <h5 class="card-title">
-                    <%= link_to gravatar_for(user, size: 150), user %>
-                </h5>
-                <p class="card-text h6"><%= pluralize(user.articles.count, "article") %></p>
-
-                    <div class="container col-4">
-                        <div class="text-center d-flex justify-content-between">
-                            <%= link_to "View profile", user, class: "btn btn-outline-success" %>
-                            <% unless current_user == user %>
-                                <% if current_user.followings.include?(user) %>
-                                    <%= button_to "Unfollow", user_follows_destroy_path(user, followed_id: user.id), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
-                                <% else %>
-                                    <%= button_to "+ Follow", user_follows_create_path(user, followed_id: user.id),class: "btn btn-outline-info", method: :post %>
-                                <% end %>
-                            <% end %>
-                            <% if logged_in? %>
-                                <% if user == current_user %>
-                                    <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info" %>
-                                <% end %>
-                                <% if current_user.admin? %>
-                                        <%= link_to "Delete user", user_path(user), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to delete the user account and related data?" } %>
-                                <% end %>
-                            <% end %>
-                        </div>
-                    </div>
-
-            </div>
-            <div class="card-footer text-muted">
-                <small>Joined <%= time_ago_in_words(user.created_at) %> ago</small>
-           </div>
+          </div>
         </div>
+      </div>
     </div>
-    </div>
-    <% end %>
-</div>
+  </div>
+ <% end %>
+</section>
+
 
 <div class="flickr_pagination mb-4">
     <%= will_paginate @articles, :container => false %>

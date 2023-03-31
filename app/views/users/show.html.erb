@@ -8,7 +8,7 @@
 <% end %>
 <div class="container">
   <div class="text-center mt-3">
-    <% unless current_user == @user %> #for all the users except the current user
+    <% unless current_user == @user %> 
         <% if current_user.followings.include?(@user) %>
             <%= button_to "Unfollow", user_follows_destroy_path(@user, followed_id: @user.id), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
         <% else %>
