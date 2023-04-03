@@ -1,28 +1,95 @@
-<h1 class="text-center mt-4" id="logo1"><%= @user.username %>'s profile</h1>
-<%= gravatar_for @user, size: 200 %>
 
-<% if logged_in? && @user== current_user%>
-    <div class="text-center mt-4">
-        <%= link_to "Edit Your Profile", edit_user_path(@user), class:"btn btn-outline-info" %>
+<section class="h-100 gradient-custom-2">
+  <div class="container py-5 h-100">
+    <div class="row d-flex justify-content-center h-100" style="margin-left: -250px;">
+      <div class="col col-lg-9 col-xl-7">
+        <div class="card" style=" width: 1000px; background-color: black;">
+          <div class="rounded-top text-white d-flex flex-row" style="background-color: #000; height:200px;">
+            <div class="ms-4 mt-5 d-flex flex-column" style="width: 150px;">
+              <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
+                alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2 ml-2"
+                style="width: 150px; height:150px; z-index: 1">
+                <% if logged_in? && @user== current_user%>
+                    <div class="ml-4" data-mdb-ripple-color="dark" style="z-index: 1;">
+                        <%= link_to "Edit Profile", edit_user_path(@user), class:"btn btn-outline-dark" %>
+                    </div>
+                <% end %>
+                <div class="container">
+                    <div class="text-center mt-3">
+                      <div class="ml-4" data-mdb-ripple-color="dark" style="z-index: 1; position: absolute">
+                        <% unless current_user == @user %> 
+                            <% if current_user.followings.include?(@user) %>
+                                <%= button_to "Unfollow", user_follows_destroy_path(@user, followed_id: @user.id), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
+                            <% else %>
+                                <%= button_to "+ Follow", user_follows_create_path(@user, followed_id: @user.id),class: "btn btn-outline-dark", method: :post %>
+                            <% end %>
+                        <% end %>
+                      </div>
+                    </div>
+                </div>
+            </div>
+            <div class="ms-3 ml-3" style="margin-top: 130px;">
+              <h5><%= @user.username%></h5>
+              <p><em>India</em></p>
+            </div>
+          </div>
+          <div class="p-4 text-black" style="background-color: #d0e2b9;">
+            <div class="d-flex justify-content-end text-center py-1">
+              <div>
+                <p class="mb-1 h5"><%= @user.articles.count%></p>
+                <p class="small text-muted mb-0">Articles</p>
+              </div>
+              <div class="px-3">
+                <p class="mb-1 h5"><%= @user.followers.count%></p>
+                <p class="small text-muted mb-0">Followers</p>
+              </div>
+              <div>
+                <p class="mb-1 h5"><%= @user.followings.count%></p>
+                <p class="small text-muted mb-0">Following</p>
+              </div>
+            </div>
+          </div>
+          <div class="card-body p-4 text-black">
+            <div class="mb-5">
+              <p class="lead fw-normal mb-1 text-white">About</p>
+              <div class="p-4" style="background-color: yellowgreen;">
+                <p class="font-italic mb-1">Blogger</p>
+              </div>
+            </div>
+            <%# <div class="d-flex justify-content-between align-items-center mb-4">
+              <p class="lead fw-normal mb-0">Articles</p>
+            </div> %>
+            <hr class="hr" style="background-color: yellowgreen" />
+
+            <h3 class="text-center mt-4 text-white">Articles</h3>
+            <div>
+            <div class="flickr_pagination">
+                <%= will_paginate @articles, :container => false %>
+            </div>
+            <div class="row g-2">
+            <%= render 'articles/article' %>
+            </div>
+            <div class="flickr_pagination mb-4">
+                <%= will_paginate @articles, :container => false %>
+            </div>
+            </div>
+            <div class="row g-2">
+              <div class="col mb-2">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(112).webp"
+                  alt="image 1" class="w-100 rounded-3">
+              </div>
+              <div class="col mb-2">
+                <img src="https://mdbcdn.b-cdn.net/img/Photos/Lightbox/Original/img%20(107).webp"
+                  alt="image 1" class="w-100 rounded-3">
+              </div>
+          </div>
+          </div>
+        </div>
+      
+
+
+
+</div>
     </div>
-<% end %>
-<div class="container">
-  <div class="text-center mt-3">
-    <% unless current_user == @user %> 
-        <% if current_user.followings.include?(@user) %>
-            <%= button_to "Unfollow", user_follows_destroy_path(@user, followed_id: @user.id), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
-        <% else %>
-            <%= button_to "+ Follow", user_follows_create_path(@user, followed_id: @user.id),class: "btn btn-outline-info", method: :post %>
-        <% end %>
-    <% end %>
- </div>
-</div>
-<h3 class="text-center mt-4 text-light">Articles</h3>
-<div class="flickr_pagination">
-    <%= will_paginate @articles, :container => false %>
-</div>
-<%= render 'articles/article' %>
-
-<div class="flickr_pagination mb-4">
-    <%= will_paginate @articles, :container => false %>
-</div>
+  </div>
+</section>
