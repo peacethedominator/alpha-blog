@@ -1,16 +1,20 @@
-<h1 class="text-center mt-4" id="logo1" >Listing all articles</h1>
+<div class="card" style="margin: 20px 275px; background-color: black">
+  <h1 class="text-center mt-4" id="logo1" >Listing all articles</h1>
 
-<div class="flickr_pagination">
-  <% if @articles.any? %>
-    <%= will_paginate @articles, container: false %>
-  <% else %>
-   <h3 class="text-light">No articles Found.</h3>
-  <% end %>
-</div>
-<%= render 'article' %>
-<div class="flickr_pagination mb-4">
-  <% if @articles.any? %>
-    <%= will_paginate @articles, container: false %>
-  <% end %>
-</div>
+  <div class="flickr_pagination">
+    <% if @articles.any? %>
+      <%= will_paginate @articles, container: false %>
+    <% else %>
+    <h3 class="text-light">No articles Found.</h3>
+    <% end %>
+  </div>
+  <hr class="hr hr-blurry" style="background-color: yellowgreen; margin-left:20px; margin-right:20px;" />
+  <%= render 'article' %>
+  <hr class="hr hr-blurry" style="background-color: yellowgreen; margin: -10px 20px 20px 20px;" />
 
+  <div class="flickr_pagination mb-4">
+    <% if @articles.any? %>
+      <%= will_paginate @articles, container: false %>
+    <% end %>
+  </div>
+</div>
