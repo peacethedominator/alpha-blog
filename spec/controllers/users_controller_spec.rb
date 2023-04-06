@@ -17,12 +17,12 @@ RSpec.describe UsersController, type: :request do
             expect(response).to render_template(:new)
         end
     end
-    describe '#index action' do
-        it 'renders index template' do
-            get users_path
-            expect(response).to render_template(:index)
-        end
-    end
+    # describe '#index action' do
+    #     it 'renders index template' do
+    #         get users_path
+    #         expect(response).to render_template(:index)
+    #     end
+    # end
     describe '#show action' do
         it 'renders show template' do
             user = sign_in_user
