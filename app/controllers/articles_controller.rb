@@ -7,10 +7,10 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   end
   
   def index
-    followed_users = current_user.followings
-    @articles = Article.where(user_id: followed_users).paginate(page: params[:page], per_page: 5)
+    followed_users = current_blogger.followings
+    @articles = Article.where(blogger_id: followed_users).paginate(page: params[:page], per_page: 5)
     # @articles = Article.paginate(page: params[:page], per_page: 5)
-    # @articles = Article.where(user_id: current_user.followings.pluck(:id))
+    # @articles = Article.where(user_id: current_blogger.followings.pluck(:id))
   end
 
   def new 
@@ -24,7 +24,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   def create
     # render plain: params[:article]
     @article = Article.new(article_params)
-    @article.user = current_user
+    @article.blogger = current_blogger
     # render plain:@article.inspect
     if @article.save
     # redirect_to article_path(@article)
@@ -59,7 +59,7 @@ before_action :require_same_user, only: [:edit, :update, :destroy]
   end
 
   def require_same_user
-    if current_user != @article.user && !current_user.admin? 
+    if current_blogger != @article.blogger 
       flash[:alert]= "Your can only modify your articles."
       redirect_to @article
     end

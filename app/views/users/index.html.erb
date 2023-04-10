@@ -22,7 +22,7 @@
                 </div>
                 </div>
                 <div class="flex-grow-1 ms-3">
-                  <h5 class="mb-1 ml-3"><%= link_to user.username, user  %></h5>
+                  <h5 class="mb-1 ml-3"><%= link_to user.email, user_path(user)  %></h5>
                   <small class="mb-2 pb-1 ml-2" style="color: #2b2a2a;">Joined <%= time_ago_in_words(user.created_at) %> ago</small>
                   <div class="d-flex justify-content-start rounded-3 p-2 mb-2 ml-2"
                     style="background-color: #efefef;">
@@ -40,19 +40,17 @@
                     </div>
                   </div>
                   <div class="d-flex pt-1">
-                      <%= link_to "View profile", user, class: "btn btn-outline-success ml-2" %>
-                      <% unless current_user == user %>
-                          <% if current_user.followings.include?(user) %>
+                      <%= link_to "View profile", users_path, class: "btn btn-outline-success ml-2" %>
+                      <% unless current_blogger == user %>
+                          <% if current_blogger.followings.include?(user) %>
                               <%= button_to "Unfollow", user_follows_destroy_path(user, followed_id: user.id), class: "btn btn-outline-danger ml-2", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
                           <% else %>
                               <%= button_to "+ Follow", user_follows_create_path(user, followed_id: user.id),class: "btn btn-outline-info ml-2", method: :post %>
                           <% end %>
                       <% end %>
-                      <% if logged_in? %>
-                          <% if user == current_user %>
+                      <% if blogger_signed_in? %>
+                          <% if user == current_blogger %>
                               <%= link_to "Edit profile", edit_user_path(user), class: "btn btn-outline-info ml-2" %>
-                          <% end %>
-                          <% if current_user.admin? %>
                                   <%= link_to "Delete user", user_path(user), class: "btn btn-outline-danger ml-2", method: :delete, data:{confirm: "Are you sure you want to delete the user account and related data?" } %>
                           <% end %>
                       <% end %>                  

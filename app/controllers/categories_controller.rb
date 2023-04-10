@@ -44,7 +44,7 @@ class CategoriesController < ApplicationController
         params.require(:category).permit(:name)
     end
     def require_admin
-        if !(logged_in? && current_user.admin?)
+        if !(blogger_signed_in? && current_user.admin?)
             flash[:alert] = "Only admins can perform this action"
             redirect_to categories_path
         end

@@ -4,15 +4,15 @@
     <div class="col-8 mt-4">
         <div class="card text-center shadow mb-5  rounded" style="background-image: linear-gradient(to right, #ffff99 0%, #99ff99 74%)">
             <div class="card-header font-italic">
-                by <%= @article.user.username if @article.user %>
-                <%= link_to gravatar_for(@article.user), user_path(@article.user) %>
+                by <%= @article.blogger.email if @article.blogger %>
+                <%= link_to gravatar_for(@article.blogger), user_path(@article.blogger_id) %>
                 <% if @article.categories.any? %>
                     <div class="mt-2" ><%= render @article.categories %></div>
                 <% end %>
             </div>
             <div class="card-body">
                 <div class="card-text text-left"><%= simple_format(@article.description) %></div>
-                <% if logged_in? && (@article.user == current_user || current_user.admin?) %>
+                <% if blogger_signed_in? && ( @article.blogger == current_blogger ) %>
                 <%= link_to "Edit", edit_article_path(@article), class: "btn btn-outline-info" %>
                 <%= link_to "Delete", article_path(@article), class: "btn btn-outline-danger", method: :delete, data: {confirm: "Are you sure?"} %>
                 <% end %>

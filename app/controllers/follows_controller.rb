@@ -1,13 +1,13 @@
 class FollowsController < ApplicationController
     def create
-        followed_user = User.find(params[:followed_id])
-        current_user.followings << followed_user
+        followed_user = Blogger.find(params[:followed_id])
+        current_blogger.followings << followed_user
 
-        redirect_to followed_user
+        redirect_to blogger_session_url
     end
     def destroy
-        followed_user = User.find(params[:followed_id])
-        current_user.followings.delete(followed_user)
+        followed_user = Blogger.find(params[:followed_id])
+        current_blogger.followings.delete(followed_user)
     
         redirect_to users_path
       end

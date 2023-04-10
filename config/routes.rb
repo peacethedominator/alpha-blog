@@ -1,16 +1,17 @@
 Rails.application.routes.draw do
+  devise_for :bloggers
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   root 'pages#home'
   get 'about', to: 'pages#about'
   # resources :articles, only: [:show, :index, :new, :create, :edit, :update, :destory]
   resources :articles #as all the routes are exposed
-  get 'signup', to: 'users#new'
+  # get 'signup', to: 'users#new'
   #post 'users', to: 'users#create'
   resources :users, except: [:new]
-  get 'login', to: 'sessions#new'
-  post 'login', to: 'sessions#create'
-  delete 'logout', to: 'sessions#destroy'
+  # get 'login', to: 'sessions#new'
+  # post 'login', to: 'sessions#create'
+  # delete 'logout', to: 'sessions#destroy'
   resources :categories, except: [:destroy]
   # post 'follows/create', to: 'follows#create'
   resources :users do

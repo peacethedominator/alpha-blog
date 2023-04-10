@@ -9,16 +9,16 @@
               <img src="https://st3.depositphotos.com/15648834/17930/v/600/depositphotos_179308454-stock-illustration-unknown-person-silhouette-glasses-profile.jpg"
                 alt="Generic placeholder image" class="img-fluid img-thumbnail mt-4 mb-2 ml-2"
                 style="width: 150px; height:150px; z-index: 1">
-                <% if logged_in? && @user== current_user%>
+                <% if blogger_signed_in? && @user== current_blogger%>
                     <div class="ml-4" data-mdb-ripple-color="dark" style="z-index: 1;">
-                        <%= link_to "Edit Profile", edit_user_path(@user), class:"btn btn-outline-dark" %>
+                        <%= link_to "Edit Profile", edit_blogger_registration_path, class:"btn btn-outline-dark" %>
                     </div>
                 <% end %>
                 <div class="container">
                     <div class="text-center mt-3">
                       <div class="ml-4" data-mdb-ripple-color="dark" style="z-index: 1; position: absolute">
-                        <% unless current_user == @user %> 
-                            <% if current_user.followings.include?(@user) %>
+                        <% unless current_blogger == @user %> 
+                            <% if current_blogger.followings.include?(@user) %>
                                 <%= button_to "Unfollow", user_follows_destroy_path(@user, followed_id: @user.id), class: "btn btn-outline-danger", method: :delete, data:{confirm: "Are you sure you want to unfollow? "} %>
                             <% else %>
                                 <%= button_to "+ Follow", user_follows_create_path(@user, followed_id: @user.id),class: "btn btn-outline-dark", method: :post %>
@@ -29,7 +29,7 @@
                 </div>
             </div>
             <div class="ms-3 ml-3" style="margin-top: 130px;">
-              <h5><%= @user.username%></h5>
+              <h5><%= @user.email%></h5>
               <p><em>India</em></p>
             </div>
           </div>
