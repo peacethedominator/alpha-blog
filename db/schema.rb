@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_04_10_083515) do
+ActiveRecord::Schema.define(version: 2023_04_12_051126) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -53,13 +53,6 @@ ActiveRecord::Schema.define(version: 2023_04_10_083515) do
     t.integer "blogger_id"
   end
 
-  create_table "articles_categories", force: :cascade do |t|
-    t.integer "article_id"
-    t.integer "category_id"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-  end
-
   create_table "bloggers", force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
@@ -83,15 +76,6 @@ ActiveRecord::Schema.define(version: 2023_04_10_083515) do
     t.integer "followed_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
-  end
-
-  create_table "users", force: :cascade do |t|
-    t.string "username"
-    t.string "email"
-    t.datetime "created_at", precision: 6, null: false
-    t.datetime "updated_at", precision: 6, null: false
-    t.string "password_digest"
-    t.boolean "admin", default: false
   end
 
 end
