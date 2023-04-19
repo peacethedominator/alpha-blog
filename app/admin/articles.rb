@@ -9,6 +9,27 @@ ActiveAdmin.register Article do
   #
   # or
   #
+
+  # show, edit, view actions allow to show on index or not
+  # actions :all, except: [:update, :destroy, :edit, :show]
+
+
+  # completely remove filters
+  # config.filters = false
+
+  # only filter those we basically required
+  # filter :user, as: :check_boxes
+
+  # You can also add a filter and still preserve the default filters:
+  # preserve_default_filters!
+  # filter :user, as: :check_boxes
+
+  # Or you can also remove a filter and still preserve the default filters:
+  # preserve_default_filters!
+  # remove_filter :user
+
+  #https://activeadmin.info/3-index-pages.html
+
   # permit_params do
   #   permitted = [:title, :description, :user_id]
   #   permitted << :other if params[:action] == 'create' && current_user.admin?
